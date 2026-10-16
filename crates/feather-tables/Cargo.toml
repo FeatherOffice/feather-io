@@ -1,0 +1,8 @@
+[package]
+name = "feather-tables"
+description = "Modelo esparso de tabelas e estilos reutilizaveis"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true

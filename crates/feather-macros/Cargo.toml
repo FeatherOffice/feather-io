@@ -1,0 +1,14 @@
+[package]
+name = "feather-macros"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Motor de macros JavaScript reutilizável entre os aplicativos da suíte FeatherOffice"
+
+[dependencies]
+boa_engine = { version = "0.22", default-features = false }
+boa_gc = "0.22"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

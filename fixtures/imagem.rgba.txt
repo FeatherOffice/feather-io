@@ -1,0 +1,6 @@
+# RGBA 2x2; pixels em ordem linha a linha (R G B A)
+2 2
+255 0 0 255
+0 255 0 128
+0 0 255 64
+255 255 255 0

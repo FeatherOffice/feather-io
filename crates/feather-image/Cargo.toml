@@ -1,0 +1,12 @@
+[package]
+name = "feather-image"
+description = "Operacoes independentes em pixels RGBA"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+# Somente os tipos de buffer; codecs continuam nos aplicativos.
+image = { version = "0.25", default-features = false }

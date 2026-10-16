@@ -1,0 +1,5 @@
+tipo=colunas
+categorias=jan|fev
+series=Vendas|Custos
+valores=10,20|5,15
+barras=4
