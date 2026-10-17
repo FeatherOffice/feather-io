@@ -429,7 +429,8 @@ dependencies = [
 
 [[package]]
 name = "feather-charts"
-version = "0.3.0"
+version = "0.3.1"
+source = "git+https://github.com/FeatherOffice/feather-charts?tag=v0.3.1#a1c638e160d7b42214baaad1a0db3560970a895b"
 dependencies = [
  "feather-draw",
  "serde",
@@ -443,14 +444,14 @@ source = "git+https://github.com/FeatherOffice/feather-draw?tag=v0.1.1#17404b4da
 
 [[package]]
 name = "feather-image"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "image",
 ]
 
 [[package]]
 name = "feather-io"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "feather-charts",
  "feather-draw",
@@ -462,7 +463,7 @@ dependencies = [
 
 [[package]]
 name = "feather-macros"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "boa_engine",
  "boa_gc",
@@ -472,7 +473,7 @@ dependencies = [
 
 [[package]]
 name = "feather-tables"
-version = "0.1.0"
+version = "0.1.1"
 
 [[package]]
 name = "fixedbitset"
