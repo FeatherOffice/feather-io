@@ -189,6 +189,14 @@ struct Ponte {
     logs: RefCell<Vec<String>>,
 }
 
+/// Voltas de um laço e chamadas ao host numa macro. Protegem contra
+/// `while(true)` (a macro roda na thread da janela), mas precisam caber uma
+/// macro que percorra as linhas de uma planilha grande.
+/// shortcut: um laço infinito ainda congela a janela alguns segundos até o
+/// limite; trocar por execução em outra thread com botão "Parar" quando houver.
+const MAX_VOLTAS: u64 = 20_000_000;
+const MAX_OPERACOES: usize = 20_000_000;
+
 fn erro(msg: impl Into<String>) -> boa_engine::JsError {
     JsNativeError::typ().with_message(msg.into()).into()
 }
@@ -199,8 +207,8 @@ fn chamada(_: &JsValue, args: &[JsValue], ctx: &mut Context) -> JsResult<JsValue
     let ponte = ctx.get_data::<Ponte>().ok_or_else(|| erro("Host da macro indisponível"))?;
     let chamadas = ponte.operacoes.get().saturating_add(1);
     ponte.operacoes.set(chamadas);
-    if chamadas > 500_000 {
-        return Err(erro("A macro excedeu 500.000 operações"));
+    if chamadas > MAX_OPERACOES {
+        return Err(erro(format!("A macro passou de {MAX_OPERACOES} chamadas à planilha: para muitas células, use intervalos inteiros (range.values)")));
     }
     let resposta = if operacao == "log" {
         let mut logs = ponte.logs.borrow_mut();
@@ -246,7 +254,7 @@ pub fn executar_com_origem(
     origem: Option<&str>,
 ) -> Resultado {
     let mut contexto = Context::default();
-    contexto.runtime_limits_mut().set_loop_iteration_limit(100_000);
+    contexto.runtime_limits_mut().set_loop_iteration_limit(MAX_VOLTAS);
     contexto.runtime_limits_mut().set_recursion_limit(64);
     contexto.insert_data(Ponte {
         host, operacoes: Cell::new(0), logs: RefCell::new(Vec::new()),
@@ -281,7 +289,21 @@ pub fn executar_com_origem(
     let saida = ponte.logs.replace(Vec::new());
     Resultado {
         saida,
-        erro: resultado.err().map(|e| e.to_string()),
+        erro: resultado.err().map(|e| mensagem_de_erro(&e)),
+    }
+}
+
+/// O limite do Boa sai em inglês ("RuntimeLimitError: reached the maximum
+/// number of iteration loops…"); quem roda a macro precisa entender.
+fn mensagem_de_erro(e: &boa_engine::JsError) -> String {
+    let texto = e.to_string();
+    if !texto.starts_with("RuntimeLimitError") {
+        return texto;
+    }
+    if texto.contains("loop") {
+        format!("A macro passou de {MAX_VOLTAS} voltas num laço: ela pode estar presa num laço sem fim")
+    } else {
+        "A macro chamou funções dentro de funções fundo demais: ela pode estar presa numa recursão sem fim".into()
     }
 }
 
@@ -319,7 +341,12 @@ mod testes {
     #[test]
     fn host_rejeita_operacoes_nao_autorizadas_e_runtime_limita_laco() {
         assert!(rodar("__ft('filesystem', ['x']);").erro.unwrap().contains("não permitida"));
-        assert!(rodar("while(true) {}").erro.is_some());
+        let preso = rodar("while(true) {}").erro.unwrap_or_default();
+        assert!(preso.starts_with("A macro passou de"), "{preso}");
+        assert!(rodar("function f() { return f(); } f();").erro.unwrap_or_default().starts_with("A macro chamou"));
+        // Uma macro que percorre as linhas de uma planilha grande cabe.
+        let grande = rodar("let s = 0; for (let i = 0; i < 1000000; i++) { s += i; } log(String(s));");
+        assert_eq!(grande.saida, ["499999500000"], "{:?}", grande.erro);
         let ok = rodar("log(typeof fetch, typeof document, typeof process, typeof require);");
         assert_eq!(ok.saida, vec!["undefined undefined undefined undefined".to_string()]);
     }
