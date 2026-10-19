@@ -8,10 +8,10 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-feather-charts = { git = "https://github.com/FeatherOffice/feather-charts", tag = "v0.3.1" }
+feather-charts = { git = "https://github.com/feather-works/feather-charts", tag = "v0.3.2" }
 feather-tables = { path = "../feather-tables" }
 feather-image = { path = "../feather-image" }
-feather-draw = { git = "https://github.com/FeatherOffice/feather-draw", tag = "v0.1.1" }
+feather-draw = { git = "https://github.com/feather-works/feather-draw", tag = "v0.1.1" }
 # Reutiliza o encoder oficial da biblioteca image; não replica o codec PNG.
 image = { version = "0.25", default-features = false, features = ["png"] }
 zip = { version = "4.2.0", default-features = false, features = ["deflate"] }

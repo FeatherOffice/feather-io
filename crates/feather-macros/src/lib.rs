@@ -1,4 +1,4 @@
-//! Motor de macros do FeatherOffice, independente de Sheet, Slide, Docs ou CAD.
+//! Motor de macros do FeatherWorks, independente de Sheet, Slide, Docs ou CAD.
 //!
 //! O interpretador Boa não expõe APIs de arquivo, rede ou DOM. Cada aplicativo
 //! registra explicitamente as operações permitidas pelo seu `HospedeiroMacros`.
@@ -160,7 +160,7 @@ impl Catalogo {
     }
 }
 
-/// Mesmo caminho para todos os produtos desktop do FeatherOffice.
+/// Mesmo caminho para todos os produtos desktop do FeatherWorks.
 /// Independente de arquivos de documento e do armazenamento antigo do browser.
 pub fn caminho_padrao() -> Option<PathBuf> {
     let base = std::env::var_os("XDG_CONFIG_HOME").map(PathBuf::from)
@@ -326,9 +326,9 @@ mod testes {
 
     #[test]
     fn macro_generica_soma_e_escreve_log_sem_conhecer_sheet() {
-        let resultado = rodar("log(__ft('somar',[2, 3])); console.log('FeatherOffice');");
+        let resultado = rodar("log(__ft('somar',[2, 3])); console.log('FeatherWorks');");
         assert!(resultado.sucesso(), "{:?}", resultado.erro);
-        assert_eq!(resultado.saida, vec!["5".to_string(), "FeatherOffice".to_string()]);
+        assert_eq!(resultado.saida, vec!["5".to_string(), "FeatherWorks".to_string()]);
     }
 
     #[test]

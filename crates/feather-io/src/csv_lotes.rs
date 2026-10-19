@@ -1,4 +1,4 @@
-//! Leitor permissivo CSV/TSV em lotes, compartilhado por FeatherOffice e FeatherSheet.
+//! Leitor permissivo CSV/TSV em lotes, compartilhado por FeatherWorks e FeatherSheet.
 //!
 //! Extraído do parser historicamente usado por `feathersheet-io::csv`.
 //! O contrato preserva separadores, aspas e multilinhas do editor legado,

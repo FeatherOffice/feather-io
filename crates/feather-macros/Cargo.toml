@@ -5,7 +5,7 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Motor de macros JavaScript reutilizável entre os aplicativos da suíte FeatherOffice"
+description = "Motor de macros JavaScript reutilizável entre os aplicativos da suíte FeatherWorks"
 
 [dependencies]
 boa_engine = { version = "0.22", default-features = false }

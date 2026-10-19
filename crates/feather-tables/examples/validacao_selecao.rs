@@ -18,7 +18,7 @@ fn main() {
         ..Default::default()
     }).expect("cabeçalho válido");
     tabela.definir(1, 0, Celula {
-        valor: Valor::Texto("FeatherOffice".into()),
+        valor: Valor::Texto("FeatherWorks".into()),
         ..Default::default()
     }).expect("produto válido");
     tabela.definir(1, 1, Celula {
@@ -37,7 +37,7 @@ fn main() {
     let tsv = dados.para_tsv().expect("serialização TSV");
     println!("Seleção: {selecionada:?}");
     println!("TSV:\n{tsv}");
-    assert_eq!(tsv, "Produto\tPreço\nFeatherOffice\t123.5");
+    assert_eq!(tsv, "Produto\tPreço\nFeatherWorks\t123.5");
 
     dados.colar(&mut tabela, PosicaoCelula::nova(3, 1), ModoColagem::Tudo)
         .expect("colagem rica válida");

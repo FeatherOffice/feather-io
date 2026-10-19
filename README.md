@@ -1,8 +1,8 @@
 # feather-io
 
-Motores comuns da suíte **FeatherOffice** para **arquivos, tabelas, imagens e
+Motores comuns da suíte **FeatherWorks** para **arquivos, tabelas, imagens e
 macros**, em Rust puro. São bibliotecas, não aplicativos: o
-[FeatherSheet](https://github.com/FeatherOffice/feathersheet), o FeatherDocs,
+[FeatherSheet](https://github.com/feather-works/feathersheet), o FeatherDocs,
 o FeatherSlide e o FeatherPDF usam o mesmo código para ler e gravar formatos,
 guardar tabelas, tratar imagens e rodar macros.
 
@@ -15,16 +15,16 @@ guardar tabelas, tratar imagens e rodar macros.
 | [`feather-image`](crates/feather-image) | operações em pixels RGBA: efeitos (cinza, desfoque, nitidez), redimensionar, Base64 |
 | [`feather-macros`](crates/feather-macros) | motor de macros JavaScript (interpretador [Boa](https://github.com/boa-dev/boa)), rodando só na máquina |
 
-Os crates dependem de [`feather-charts`](https://github.com/FeatherOffice/feather-charts)
-(gráficos) e [`feather-draw`](https://github.com/FeatherOffice/feather-draw)
+Os crates dependem de [`feather-charts`](https://github.com/feather-works/feather-charts)
+(gráficos) e [`feather-draw`](https://github.com/feather-works/feather-draw)
 (desenho vetorial, SVG e PDF).
 
 ## Usar
 
 ```toml
 [dependencies]
-feather-io = { git = "https://github.com/FeatherOffice/feather-io" }
-feather-tables = { git = "https://github.com/FeatherOffice/feather-io" }
+feather-io = { git = "https://github.com/feather-works/feather-io" }
+feather-tables = { git = "https://github.com/feather-works/feather-io" }
 ```
 
 Enquanto o `feather-charts` é usado por caminho, clone os dois lado a lado:
