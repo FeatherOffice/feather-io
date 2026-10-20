@@ -51,4 +51,4 @@ só lê e grava a biblioteca de macros no caminho que o aplicativo indicar.
 
 ## Licença
 
-[GPL-3.0](LICENSE).
+[MIT](LICENSE).
